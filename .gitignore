@@ -1,0 +1,3 @@
+# Generated test output (CSVs + violin PNGs from latency runs)
+data/
+plots/

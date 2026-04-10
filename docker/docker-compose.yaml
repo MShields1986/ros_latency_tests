@@ -1,0 +1,104 @@
+name: latency_tests
+
+x-common: &common
+  environment:
+    - DISPLAY
+  network_mode: host
+  ipc: host
+  shm_size: "1gb"
+  volumes:
+    - /dev:/dev
+    - $XAUTHORITY:/root/.Xauthority
+    - ../src:/ros2_ws/src
+    - ../data:/data
+  # Override at `docker compose run <svc> <cmd>` to vary parameters.
+  command: >
+    ros2 launch latency_tests latency_pipeline.launch.py
+
+services:
+  cyclonedds:
+    <<: *common
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      network: host
+      args:
+        RMW_IMPL: cyclonedds
+
+  fastdds:
+    <<: *common
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      network: host
+      args:
+        RMW_IMPL: fastdds
+
+  fastdds_dynamic:
+    <<: *common
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      network: host
+      args:
+        RMW_IMPL: fastdds_dynamic
+
+  zenoh:
+    <<: *common
+    entrypoint: ["/usr/local/bin/latency_zenoh_entrypoint.sh"]
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      network: host
+      args:
+        RMW_IMPL: zenoh
+
+  # Eclipse iceoryx v1 — shared-memory DDS transport. Requires a RouDi daemon
+  # running inside the container before the ROS launch.
+  iceoryx:
+    <<: *common
+    profiles: ["exploratory"]
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      network: host
+      args:
+        RMW_IMPL: iceoryx
+    command: >
+      bash -lc "iox-roudi &
+                sleep 2 &&
+                ros2 launch latency_tests latency_pipeline.launch.py"
+
+  # Placeholder for iceoryx2 (v2) — not yet implemented. See
+  # docker/rmw/iceoryx2.sh. The build will intentionally fail until a real
+  # rmw_iceoryx2 integration exists.
+  iceoryx2:
+    <<: *common
+    profiles: ["exploratory"]
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      network: host
+      args:
+        RMW_IMPL: iceoryx2
+
+  # Standalone plotter — reads the CSVs written by the other services and
+  # emits PNG violin plots into the same data volume.
+  plot:
+    build:
+      context: ..
+      dockerfile: docker/plot.Dockerfile
+    volumes:
+      - ../scripts:/work/scripts:ro
+      - ../data:/data
+
+  # Exploratory — see docker/rmw/agnocast.sh notes.
+  agnocast:
+    <<: *common
+    profiles: ["exploratory"]
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      network: host
+      args:
+        RMW_IMPL: agnocast
