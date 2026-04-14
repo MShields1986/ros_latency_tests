@@ -1,4 +1,4 @@
-#include "geometry_msgs/msg/transform_stamped.hpp"
+#include <geometry_msgs/TransformStamped.h>
 #include "latency_tests/register_components.hpp"
 
-LATENCY_REGISTER_COMPONENTS(geometry_msgs::msg::TransformStamped, geometry_msgs_TransformStamped)
+LATENCY_REGISTER_COMPONENTS(geometry_msgs::TransformStamped, geometry_msgs_TransformStamped)

@@ -1,0 +1,421 @@
+<library path="lib/liblatency_components">
+  <class name="latency_tests/LatencyPublisher_sensor_msgs_PointCloud2" type="latency_tests::LatencyPublisher_sensor_msgs_PointCloud2" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for sensor_msgs_PointCloud2</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_sensor_msgs_PointCloud2" type="latency_tests::LatencyForwarder_sensor_msgs_PointCloud2" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for sensor_msgs_PointCloud2</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_sensor_msgs_PointCloud2" type="latency_tests::LatencySubscriber_sensor_msgs_PointCloud2" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for sensor_msgs_PointCloud2</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_sensor_msgs_Image" type="latency_tests::LatencyPublisher_sensor_msgs_Image" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for sensor_msgs_Image</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_sensor_msgs_Image" type="latency_tests::LatencyForwarder_sensor_msgs_Image" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for sensor_msgs_Image</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_sensor_msgs_Image" type="latency_tests::LatencySubscriber_sensor_msgs_Image" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for sensor_msgs_Image</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_sensor_msgs_Imu" type="latency_tests::LatencyPublisher_sensor_msgs_Imu" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for sensor_msgs_Imu</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_sensor_msgs_Imu" type="latency_tests::LatencyForwarder_sensor_msgs_Imu" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for sensor_msgs_Imu</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_sensor_msgs_Imu" type="latency_tests::LatencySubscriber_sensor_msgs_Imu" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for sensor_msgs_Imu</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_sensor_msgs_LaserScan" type="latency_tests::LatencyPublisher_sensor_msgs_LaserScan" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for sensor_msgs_LaserScan</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_sensor_msgs_LaserScan" type="latency_tests::LatencyForwarder_sensor_msgs_LaserScan" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for sensor_msgs_LaserScan</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_sensor_msgs_LaserScan" type="latency_tests::LatencySubscriber_sensor_msgs_LaserScan" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for sensor_msgs_LaserScan</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_sensor_msgs_JointState" type="latency_tests::LatencyPublisher_sensor_msgs_JointState" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for sensor_msgs_JointState</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_sensor_msgs_JointState" type="latency_tests::LatencyForwarder_sensor_msgs_JointState" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for sensor_msgs_JointState</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_sensor_msgs_JointState" type="latency_tests::LatencySubscriber_sensor_msgs_JointState" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for sensor_msgs_JointState</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_sensor_msgs_PointCloud" type="latency_tests::LatencyPublisher_sensor_msgs_PointCloud" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for sensor_msgs_PointCloud</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_sensor_msgs_PointCloud" type="latency_tests::LatencyForwarder_sensor_msgs_PointCloud" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for sensor_msgs_PointCloud</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_sensor_msgs_PointCloud" type="latency_tests::LatencySubscriber_sensor_msgs_PointCloud" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for sensor_msgs_PointCloud</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_sensor_msgs_Range" type="latency_tests::LatencyPublisher_sensor_msgs_Range" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for sensor_msgs_Range</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_sensor_msgs_Range" type="latency_tests::LatencyForwarder_sensor_msgs_Range" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for sensor_msgs_Range</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_sensor_msgs_Range" type="latency_tests::LatencySubscriber_sensor_msgs_Range" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for sensor_msgs_Range</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_sensor_msgs_Temperature" type="latency_tests::LatencyPublisher_sensor_msgs_Temperature" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for sensor_msgs_Temperature</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_sensor_msgs_Temperature" type="latency_tests::LatencyForwarder_sensor_msgs_Temperature" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for sensor_msgs_Temperature</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_sensor_msgs_Temperature" type="latency_tests::LatencySubscriber_sensor_msgs_Temperature" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for sensor_msgs_Temperature</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_sensor_msgs_FluidPressure" type="latency_tests::LatencyPublisher_sensor_msgs_FluidPressure" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for sensor_msgs_FluidPressure</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_sensor_msgs_FluidPressure" type="latency_tests::LatencyForwarder_sensor_msgs_FluidPressure" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for sensor_msgs_FluidPressure</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_sensor_msgs_FluidPressure" type="latency_tests::LatencySubscriber_sensor_msgs_FluidPressure" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for sensor_msgs_FluidPressure</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_nav_msgs_Odometry" type="latency_tests::LatencyPublisher_nav_msgs_Odometry" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for nav_msgs_Odometry</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_nav_msgs_Odometry" type="latency_tests::LatencyForwarder_nav_msgs_Odometry" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for nav_msgs_Odometry</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_nav_msgs_Odometry" type="latency_tests::LatencySubscriber_nav_msgs_Odometry" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for nav_msgs_Odometry</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_nav_msgs_Path" type="latency_tests::LatencyPublisher_nav_msgs_Path" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for nav_msgs_Path</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_nav_msgs_Path" type="latency_tests::LatencyForwarder_nav_msgs_Path" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for nav_msgs_Path</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_nav_msgs_Path" type="latency_tests::LatencySubscriber_nav_msgs_Path" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for nav_msgs_Path</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_geometry_msgs_PointStamped" type="latency_tests::LatencyPublisher_geometry_msgs_PointStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for geometry_msgs_PointStamped</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_geometry_msgs_PointStamped" type="latency_tests::LatencyForwarder_geometry_msgs_PointStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for geometry_msgs_PointStamped</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_geometry_msgs_PointStamped" type="latency_tests::LatencySubscriber_geometry_msgs_PointStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for geometry_msgs_PointStamped</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_geometry_msgs_PoseStamped" type="latency_tests::LatencyPublisher_geometry_msgs_PoseStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for geometry_msgs_PoseStamped</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_geometry_msgs_PoseStamped" type="latency_tests::LatencyForwarder_geometry_msgs_PoseStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for geometry_msgs_PoseStamped</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_geometry_msgs_PoseStamped" type="latency_tests::LatencySubscriber_geometry_msgs_PoseStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for geometry_msgs_PoseStamped</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_geometry_msgs_TwistStamped" type="latency_tests::LatencyPublisher_geometry_msgs_TwistStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for geometry_msgs_TwistStamped</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_geometry_msgs_TwistStamped" type="latency_tests::LatencyForwarder_geometry_msgs_TwistStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for geometry_msgs_TwistStamped</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_geometry_msgs_TwistStamped" type="latency_tests::LatencySubscriber_geometry_msgs_TwistStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for geometry_msgs_TwistStamped</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_geometry_msgs_WrenchStamped" type="latency_tests::LatencyPublisher_geometry_msgs_WrenchStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for geometry_msgs_WrenchStamped</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_geometry_msgs_WrenchStamped" type="latency_tests::LatencyForwarder_geometry_msgs_WrenchStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for geometry_msgs_WrenchStamped</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_geometry_msgs_WrenchStamped" type="latency_tests::LatencySubscriber_geometry_msgs_WrenchStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for geometry_msgs_WrenchStamped</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_geometry_msgs_TransformStamped" type="latency_tests::LatencyPublisher_geometry_msgs_TransformStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for geometry_msgs_TransformStamped</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_geometry_msgs_TransformStamped" type="latency_tests::LatencyForwarder_geometry_msgs_TransformStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for geometry_msgs_TransformStamped</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_geometry_msgs_TransformStamped" type="latency_tests::LatencySubscriber_geometry_msgs_TransformStamped" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for geometry_msgs_TransformStamped</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Header" type="latency_tests::LatencyPublisher_std_msgs_Header" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Header</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Header" type="latency_tests::LatencyForwarder_std_msgs_Header" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Header</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Header" type="latency_tests::LatencySubscriber_std_msgs_Header" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Header</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_String" type="latency_tests::LatencyPublisher_std_msgs_String" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_String</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_String" type="latency_tests::LatencyForwarder_std_msgs_String" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_String</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_String" type="latency_tests::LatencySubscriber_std_msgs_String" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_String</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Bool" type="latency_tests::LatencyPublisher_std_msgs_Bool" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Bool</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Bool" type="latency_tests::LatencyForwarder_std_msgs_Bool" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Bool</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Bool" type="latency_tests::LatencySubscriber_std_msgs_Bool" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Bool</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Byte" type="latency_tests::LatencyPublisher_std_msgs_Byte" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Byte</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Byte" type="latency_tests::LatencyForwarder_std_msgs_Byte" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Byte</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Byte" type="latency_tests::LatencySubscriber_std_msgs_Byte" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Byte</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Char" type="latency_tests::LatencyPublisher_std_msgs_Char" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Char</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Char" type="latency_tests::LatencyForwarder_std_msgs_Char" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Char</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Char" type="latency_tests::LatencySubscriber_std_msgs_Char" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Char</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_ColorRGBA" type="latency_tests::LatencyPublisher_std_msgs_ColorRGBA" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_ColorRGBA</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_ColorRGBA" type="latency_tests::LatencyForwarder_std_msgs_ColorRGBA" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_ColorRGBA</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_ColorRGBA" type="latency_tests::LatencySubscriber_std_msgs_ColorRGBA" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_ColorRGBA</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Empty" type="latency_tests::LatencyPublisher_std_msgs_Empty" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Empty</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Empty" type="latency_tests::LatencyForwarder_std_msgs_Empty" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Empty</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Empty" type="latency_tests::LatencySubscriber_std_msgs_Empty" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Empty</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Float32" type="latency_tests::LatencyPublisher_std_msgs_Float32" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Float32</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Float32" type="latency_tests::LatencyForwarder_std_msgs_Float32" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Float32</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Float32" type="latency_tests::LatencySubscriber_std_msgs_Float32" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Float32</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Float64" type="latency_tests::LatencyPublisher_std_msgs_Float64" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Float64</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Float64" type="latency_tests::LatencyForwarder_std_msgs_Float64" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Float64</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Float64" type="latency_tests::LatencySubscriber_std_msgs_Float64" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Float64</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Int8" type="latency_tests::LatencyPublisher_std_msgs_Int8" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Int8</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Int8" type="latency_tests::LatencyForwarder_std_msgs_Int8" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Int8</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Int8" type="latency_tests::LatencySubscriber_std_msgs_Int8" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Int8</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Int16" type="latency_tests::LatencyPublisher_std_msgs_Int16" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Int16</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Int16" type="latency_tests::LatencyForwarder_std_msgs_Int16" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Int16</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Int16" type="latency_tests::LatencySubscriber_std_msgs_Int16" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Int16</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Int32" type="latency_tests::LatencyPublisher_std_msgs_Int32" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Int32</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Int32" type="latency_tests::LatencyForwarder_std_msgs_Int32" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Int32</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Int32" type="latency_tests::LatencySubscriber_std_msgs_Int32" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Int32</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Int64" type="latency_tests::LatencyPublisher_std_msgs_Int64" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Int64</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Int64" type="latency_tests::LatencyForwarder_std_msgs_Int64" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Int64</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Int64" type="latency_tests::LatencySubscriber_std_msgs_Int64" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Int64</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_UInt8" type="latency_tests::LatencyPublisher_std_msgs_UInt8" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_UInt8</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_UInt8" type="latency_tests::LatencyForwarder_std_msgs_UInt8" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_UInt8</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_UInt8" type="latency_tests::LatencySubscriber_std_msgs_UInt8" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_UInt8</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_UInt16" type="latency_tests::LatencyPublisher_std_msgs_UInt16" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_UInt16</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_UInt16" type="latency_tests::LatencyForwarder_std_msgs_UInt16" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_UInt16</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_UInt16" type="latency_tests::LatencySubscriber_std_msgs_UInt16" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_UInt16</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_UInt32" type="latency_tests::LatencyPublisher_std_msgs_UInt32" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_UInt32</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_UInt32" type="latency_tests::LatencyForwarder_std_msgs_UInt32" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_UInt32</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_UInt32" type="latency_tests::LatencySubscriber_std_msgs_UInt32" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_UInt32</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_UInt64" type="latency_tests::LatencyPublisher_std_msgs_UInt64" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_UInt64</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_UInt64" type="latency_tests::LatencyForwarder_std_msgs_UInt64" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_UInt64</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_UInt64" type="latency_tests::LatencySubscriber_std_msgs_UInt64" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_UInt64</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_MultiArrayDimension" type="latency_tests::LatencyPublisher_std_msgs_MultiArrayDimension" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_MultiArrayDimension</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_MultiArrayDimension" type="latency_tests::LatencyForwarder_std_msgs_MultiArrayDimension" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_MultiArrayDimension</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_MultiArrayDimension" type="latency_tests::LatencySubscriber_std_msgs_MultiArrayDimension" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_MultiArrayDimension</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_MultiArrayLayout" type="latency_tests::LatencyPublisher_std_msgs_MultiArrayLayout" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_MultiArrayLayout</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_MultiArrayLayout" type="latency_tests::LatencyForwarder_std_msgs_MultiArrayLayout" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_MultiArrayLayout</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_MultiArrayLayout" type="latency_tests::LatencySubscriber_std_msgs_MultiArrayLayout" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_MultiArrayLayout</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_ByteMultiArray" type="latency_tests::LatencyPublisher_std_msgs_ByteMultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_ByteMultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_ByteMultiArray" type="latency_tests::LatencyForwarder_std_msgs_ByteMultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_ByteMultiArray</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_ByteMultiArray" type="latency_tests::LatencySubscriber_std_msgs_ByteMultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_ByteMultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Float32MultiArray" type="latency_tests::LatencyPublisher_std_msgs_Float32MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Float32MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Float32MultiArray" type="latency_tests::LatencyForwarder_std_msgs_Float32MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Float32MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Float32MultiArray" type="latency_tests::LatencySubscriber_std_msgs_Float32MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Float32MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Float64MultiArray" type="latency_tests::LatencyPublisher_std_msgs_Float64MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Float64MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Float64MultiArray" type="latency_tests::LatencyForwarder_std_msgs_Float64MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Float64MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Float64MultiArray" type="latency_tests::LatencySubscriber_std_msgs_Float64MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Float64MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Int8MultiArray" type="latency_tests::LatencyPublisher_std_msgs_Int8MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Int8MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Int8MultiArray" type="latency_tests::LatencyForwarder_std_msgs_Int8MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Int8MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Int8MultiArray" type="latency_tests::LatencySubscriber_std_msgs_Int8MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Int8MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Int16MultiArray" type="latency_tests::LatencyPublisher_std_msgs_Int16MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Int16MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Int16MultiArray" type="latency_tests::LatencyForwarder_std_msgs_Int16MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Int16MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Int16MultiArray" type="latency_tests::LatencySubscriber_std_msgs_Int16MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Int16MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Int32MultiArray" type="latency_tests::LatencyPublisher_std_msgs_Int32MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Int32MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Int32MultiArray" type="latency_tests::LatencyForwarder_std_msgs_Int32MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Int32MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Int32MultiArray" type="latency_tests::LatencySubscriber_std_msgs_Int32MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Int32MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_Int64MultiArray" type="latency_tests::LatencyPublisher_std_msgs_Int64MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_Int64MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_Int64MultiArray" type="latency_tests::LatencyForwarder_std_msgs_Int64MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_Int64MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_Int64MultiArray" type="latency_tests::LatencySubscriber_std_msgs_Int64MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_Int64MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_UInt8MultiArray" type="latency_tests::LatencyPublisher_std_msgs_UInt8MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_UInt8MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_UInt8MultiArray" type="latency_tests::LatencyForwarder_std_msgs_UInt8MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_UInt8MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_UInt8MultiArray" type="latency_tests::LatencySubscriber_std_msgs_UInt8MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_UInt8MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_UInt16MultiArray" type="latency_tests::LatencyPublisher_std_msgs_UInt16MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_UInt16MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_UInt16MultiArray" type="latency_tests::LatencyForwarder_std_msgs_UInt16MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_UInt16MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_UInt16MultiArray" type="latency_tests::LatencySubscriber_std_msgs_UInt16MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_UInt16MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_UInt32MultiArray" type="latency_tests::LatencyPublisher_std_msgs_UInt32MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_UInt32MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_UInt32MultiArray" type="latency_tests::LatencyForwarder_std_msgs_UInt32MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_UInt32MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_UInt32MultiArray" type="latency_tests::LatencySubscriber_std_msgs_UInt32MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_UInt32MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyPublisher_std_msgs_UInt64MultiArray" type="latency_tests::LatencyPublisher_std_msgs_UInt64MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency publisher nodelet for std_msgs_UInt64MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencyForwarder_std_msgs_UInt64MultiArray" type="latency_tests::LatencyForwarder_std_msgs_UInt64MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency forwarder nodelet for std_msgs_UInt64MultiArray</description>
+  </class>
+  <class name="latency_tests/LatencySubscriber_std_msgs_UInt64MultiArray" type="latency_tests::LatencySubscriber_std_msgs_UInt64MultiArray" base_class_type="nodelet::Nodelet">
+    <description>Latency subscriber nodelet for std_msgs_UInt64MultiArray</description>
+  </class>
+</library>
+<library path="lib/liblatency_collector_component">
+  <class name="latency_tests/LatencyCollector" type="latency_tests::LatencyCollector" base_class_type="nodelet::Nodelet">
+    <description>Collector nodelet — aggregates LatencyRecord messages into CSVs</description>
+  </class>
+</library>

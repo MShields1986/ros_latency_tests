@@ -14,6 +14,8 @@
 #include <sys/utsname.h>
 #include <unistd.h>
 
+#include <pluginlib/class_list_macros.h>
+
 namespace latency_tests
 {
 
@@ -76,7 +78,6 @@ double stddev(const std::vector<int64_t> & v, double m)
     return static_cast<double>(std::sqrt(s / (v.size() - 1)));
 }
 
-// Read the first value of a "key: value" style file entry (e.g. /proc/cpuinfo).
 std::string read_first(const std::string & path, const std::string & key)
 {
     std::ifstream f(path);
@@ -86,7 +87,6 @@ std::string read_first(const std::string & path, const std::string & key)
         const auto colon = line.find(':');
         if (colon == std::string::npos) continue;
         std::string k = line.substr(0, colon);
-        // trim trailing whitespace from key
         while (!k.empty() && (k.back() == ' ' || k.back() == '\t')) k.pop_back();
         if (k != key) continue;
         std::string v = line.substr(colon + 1);
@@ -96,7 +96,6 @@ std::string read_first(const std::string & path, const std::string & key)
     return "unknown";
 }
 
-// Parse /etc/os-release for PRETTY_NAME.
 std::string read_os_pretty_name()
 {
     std::ifstream f("/etc/os-release");
@@ -122,37 +121,30 @@ std::string host_name()
 }  // namespace
 
 
-LatencyCollector::LatencyCollector(const rclcpp::NodeOptions & options)
-: rclcpp::Node("latency_collector", options)
+void LatencyCollector::onInit()
 {
-    output_dir_      = this->declare_parameter<std::string>("output_dir", "/data/results");
-    message_type_    = this->declare_parameter<std::string>("message_type", "unknown");
-    pipeline_id_     = this->declare_parameter<std::string>("pipeline_id", "run");
-    num_nodes_       = this->declare_parameter<int>("num_nodes", 2);
-    num_threads_     = this->declare_parameter<int>("num_threads", 0);
-    payload_bytes_   = this->declare_parameter<int>("payload_bytes", 0);
-    publish_rate_hz_ = this->declare_parameter<double>("publish_rate_hz", 0.0);
-    use_intra_process_comms_ =
-        this->declare_parameter<bool>("use_intra_process_comms", false);
-    const std::string records_topic =
-        this->declare_parameter<std::string>("records_topic", "/latency/records");
+    ros::NodeHandle nh  = getMTNodeHandle();
+    ros::NodeHandle pnh = getMTPrivateNodeHandle();
 
-    rmw_impl_ = env_or("RMW_IMPLEMENTATION", "unknown_rmw");
+    pnh.param<std::string>("output_dir",   output_dir_,   "/data/results");
+    pnh.param<std::string>("message_type", message_type_, "unknown");
+    pnh.param<std::string>("pipeline_id",  pipeline_id_,  "run");
+    pnh.param<std::string>("transport",    transport_,    "unknown");
+    pnh.param<int>("num_nodes",    num_nodes_,    2);
+    pnh.param<int>("num_threads",  num_threads_,  0);
+    pnh.param<int>("payload_bytes", payload_bytes_, 0);
+    pnh.param<double>("publish_rate_hz", publish_rate_hz_, 0.0);
+    pnh.param<bool>("use_intra_process_comms", use_intra_process_comms_, false);
+    std::string records_topic;
+    pnh.param<std::string>("records_topic", records_topic, "/latency/records");
 
     hop_samples_.resize(num_nodes_);
     cumulative_samples_.resize(num_nodes_);
 
-    // Files are opened lazily in on_record() once the first publisher sample
-    // arrives — that's when we know the real serialized payload size.
+    sub_ = nh.subscribe<latency_tests_msgs::LatencyRecord>(
+        records_topic, 10000, &LatencyCollector::on_record, this);
 
-    rclcpp::QoS qos(rclcpp::KeepLast(10000));
-    qos.reliable();
-    sub_ = this->create_subscription<latency_tests_msgs::msg::LatencyRecord>(
-        records_topic, qos,
-        std::bind(&LatencyCollector::on_record, this, std::placeholders::_1));
-
-    RCLCPP_INFO(this->get_logger(),
-        "LatencyCollector waiting for first publisher sample before opening CSV");
+    NODELET_INFO("LatencyCollector waiting for first publisher sample before opening CSV");
 }
 
 LatencyCollector::~LatencyCollector()
@@ -166,7 +158,7 @@ std::string LatencyCollector::build_filename_stem()
 {
     std::ostringstream ss;
     ss << output_dir_ << "/latency_"
-       << sanitise(rmw_impl_) << "_"
+       << sanitise(transport_) << "_"
        << sanitise(message_type_) << "_"
        << num_nodes_ << "nodes_"
        << num_threads_ << "threads_"
@@ -196,7 +188,7 @@ void LatencyCollector::open_files()
 
     auto write_meta = [&](std::ofstream & f) {
         f << "# pipeline_id=" << pipeline_id_ << "\n"
-          << "# rmw=" << rmw_impl_ << "\n"
+          << "# rmw=" << transport_ << "\n"
           << "# message_type=" << message_type_ << "\n"
           << "# num_nodes=" << num_nodes_ << "\n"
           << "# num_threads=" << num_threads_ << "\n"
@@ -219,7 +211,7 @@ void LatencyCollector::open_files()
 }
 
 void LatencyCollector::on_record(
-    const latency_tests_msgs::msg::LatencyRecord::SharedPtr msg)
+    const latency_tests_msgs::LatencyRecord::ConstPtr & msg)
 {
     if (msg->pipeline_id != pipeline_id_) return;
     if (msg->node_index < 0 || msg->node_index >= num_nodes_) return;
@@ -227,11 +219,10 @@ void LatencyCollector::on_record(
     std::lock_guard<std::mutex> lk(mu_);
 
     if (!csv_.is_open()) {
-        if (msg->node_index != 0) return;  // wait for publisher sample first
+        if (msg->node_index != 0) return;
         payload_bytes_ = static_cast<int>(msg->payload_bytes);
         open_files();
-        RCLCPP_INFO(this->get_logger(),
-            "LatencyCollector opened %s (actual payload=%u B)",
+        NODELET_INFO("LatencyCollector opened %s (actual payload=%u B)",
             filename_stem_.c_str(), msg->payload_bytes);
     }
 
@@ -241,8 +232,8 @@ void LatencyCollector::on_record(
     auto & s = rec.per_node[msg->node_index];
     if (!s.seen) {
         s.seen = true;
-        s.t_origin_ns   = rclcpp::Time(msg->t_origin).nanoseconds();
-        s.t_observed_ns = rclcpp::Time(msg->t_observed).nanoseconds();
+        s.t_origin_ns   = msg->t_origin.toNSec();
+        s.t_observed_ns = msg->t_observed.toNSec();
         s.payload_bytes = msg->payload_bytes;
         s.role          = msg->node_role;
         ++rec.seen_count;
@@ -325,4 +316,4 @@ void LatencyCollector::write_summary()
 
 }  // namespace latency_tests
 
-RCLCPP_COMPONENTS_REGISTER_NODE(latency_tests::LatencyCollector)
+PLUGINLIB_EXPORT_CLASS(latency_tests::LatencyCollector, nodelet::Nodelet)

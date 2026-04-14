@@ -1,4 +1,4 @@
-#include "sensor_msgs/msg/temperature.hpp"
+#include <sensor_msgs/Temperature.h>
 #include "latency_tests/register_components.hpp"
 
-LATENCY_REGISTER_COMPONENTS(sensor_msgs::msg::Temperature, sensor_msgs_Temperature)
+LATENCY_REGISTER_COMPONENTS(sensor_msgs::Temperature, sensor_msgs_Temperature)

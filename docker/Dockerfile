@@ -1,44 +1,36 @@
-ARG ROS_DISTRO=kilted
-
-FROM ros:${ROS_DISTRO}-ros-base
+FROM ros:noetic-ros-base
 
 SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 
-# RMW selector: one of cyclonedds, fastdds, zenoh, iceoryx2, agnocast
-ARG RMW_IMPL=cyclonedds
-ENV RMW_IMPL=${RMW_IMPL}
-
-# Install the selected RMW and export RMW_IMPLEMENTATION via /etc/profile.d
-COPY docker/rmw/${RMW_IMPL}.sh /tmp/install_rmw.sh
-RUN chmod +x /tmp/install_rmw.sh \
- && /tmp/install_rmw.sh \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      build-essential \
+      python3-catkin-tools \
+      python3-rosdep \
+      ros-noetic-nodelet \
+      ros-noetic-pluginlib \
+      ros-noetic-std-msgs \
+      ros-noetic-sensor-msgs \
+      ros-noetic-geometry-msgs \
+      ros-noetic-nav-msgs \
+      ros-noetic-message-generation \
+      ros-noetic-message-runtime \
  && rm -rf /var/lib/apt/lists/*
 
-# Increase kernel network buffers (helps loopback DDS transports)
-RUN echo 'net.core.rmem_max=2147483647'     >> /etc/sysctl.conf \
- && echo 'net.core.rmem_default=8388608'    >> /etc/sysctl.conf
-
 # Build the workspace
-COPY src /ros2_ws/src
-WORKDIR /ros2_ws
-RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
- && rosdep update \
- && rosdep install -i --from-path src --rosdistro ${ROS_DISTRO} -y \
+COPY src /catkin_ws/src
+WORKDIR /catkin_ws
+RUN source /opt/ros/noetic/setup.bash \
+ && rosdep update --rosdistro noetic \
+ && rosdep install -i --from-path src --rosdistro noetic -y \
  && JOBS=$(( $(nproc) / 2 > 0 ? $(nproc) / 2 : 1 )) \
- && MAKEFLAGS="-j${JOBS}" colcon build --symlink-install \
-        --parallel-workers "${JOBS}" \
-        --cmake-args -DCMAKE_BUILD_TYPE=Release \
- && echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> /root/.bashrc \
- && echo 'source /ros2_ws/install/setup.bash'       >> /root/.bashrc \
- && echo 'source /ros2_ws/install/setup.bash'       >> /ros_entrypoint.sh
+ && catkin_make -j"${JOBS}" -DCMAKE_BUILD_TYPE=Release install \
+ && echo 'source /opt/ros/noetic/setup.bash'   >> /root/.bashrc \
+ && echo 'source /catkin_ws/devel/setup.bash'  >> /root/.bashrc
 
-# Ensure RMW_IMPLEMENTATION is exported in interactive shells and entrypoint.
-RUN cat /etc/profile.d/latency_rmw.sh >> /root/.bashrc \
- && sed -i '/exec "$@"/d' /ros_entrypoint.sh \
- && echo 'source /etc/profile.d/latency_rmw.sh' >> /ros_entrypoint.sh \
- && echo 'exec "$@"' >> /ros_entrypoint.sh
-
-ENTRYPOINT [ "/ros_entrypoint.sh" ]
+COPY docker/ros_entrypoint.sh /ros_entrypoint.sh
+RUN chmod +x /ros_entrypoint.sh
+ENTRYPOINT ["/ros_entrypoint.sh"]
+CMD ["bash"]
 
 ENV DEBIAN_FRONTEND=dialog

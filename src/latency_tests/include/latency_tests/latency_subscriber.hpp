@@ -3,50 +3,53 @@
 #include <memory>
 #include <string>
 
-#include "rclcpp/rclcpp.hpp"
-#include "latency_tests_msgs/msg/latency_record.hpp"
+#include <ros/ros.h>
+#include <nodelet/nodelet.h>
+
+#include <latency_tests_msgs/LatencyRecord.h>
 
 #include "latency_tests/payload_traits.hpp"
+#include "latency_tests/transport_hints.hpp"
 
 namespace latency_tests
 {
 
 template <typename MsgT>
-class LatencySubscriber : public rclcpp::Node
+class LatencySubscriber : public nodelet::Nodelet
 {
 public:
-    explicit LatencySubscriber(const rclcpp::NodeOptions & options)
-    : rclcpp::Node("latency_subscriber", options)
+    void onInit() override
     {
-        pipeline_id_   = this->declare_parameter<std::string>("pipeline_id", "run");
-        message_type_  = this->declare_parameter<std::string>("message_type", "unknown");
-        input_topic_   = this->declare_parameter<std::string>("input_topic", "/chain/hop_in");
-        records_topic_ = this->declare_parameter<std::string>("records_topic", "/latency/records");
-        node_index_    = this->declare_parameter<int>("node_index", 99);
-        payload_bytes_ = this->declare_parameter<int>("payload_bytes", 0);
+        ros::NodeHandle nh  = getMTNodeHandle();
+        ros::NodeHandle pnh = getMTPrivateNodeHandle();
 
-        rclcpp::QoS chain_qos(rclcpp::KeepLast(100));
-        chain_qos.reliable();
+        pnh.param<std::string>("pipeline_id",   pipeline_id_,   "run");
+        pnh.param<std::string>("message_type",  message_type_,  "unknown");
+        pnh.param<std::string>("input_topic",   input_topic_,   "/chain/hop_in");
+        pnh.param<std::string>("records_topic", records_topic_, "/latency/records");
+        pnh.param<int>("node_index", node_index_, 99);
+        pnh.param<int>("payload_bytes", payload_bytes_, 0);
+        std::string transport;
+        pnh.param<std::string>("transport", transport, "tcp");
 
-        rclcpp::QoS records_qos(rclcpp::KeepLast(10000));
-        records_qos.reliable();
-        records_pub_ = this->create_publisher<latency_tests_msgs::msg::LatencyRecord>(
-            records_topic_, records_qos);
+        records_pub_ = nh.advertise<latency_tests_msgs::LatencyRecord>(records_topic_, 10000);
 
-        sub_ = this->create_subscription<MsgT>(
-            input_topic_, chain_qos,
-            [this](std::shared_ptr<const MsgT> msg) { this->on_msg(msg); });
+        sub_ = nh.subscribe<MsgT>(
+            input_topic_, 100,
+            boost::bind(&LatencySubscriber::on_msg, this, _1),
+            ros::VoidConstPtr(),
+            make_hints(transport));
 
-        RCLCPP_INFO(this->get_logger(),
-            "LatencySubscriber[%d] <- %s", node_index_, input_topic_.c_str());
+        NODELET_INFO("LatencySubscriber[%d] <- %s (transport=%s)",
+            node_index_, input_topic_.c_str(), transport.c_str());
     }
 
 private:
-    void on_msg(std::shared_ptr<const MsgT> msg)
+    void on_msg(const boost::shared_ptr<MsgT const> & msg)
     {
-        const rclcpp::Time t_now = this->now();
+        const ros::Time t_now = ros::Time::now();
 
-        latency_tests_msgs::msg::LatencyRecord rec;
+        latency_tests_msgs::LatencyRecord rec;
         rec.pipeline_id = pipeline_id_;
         if (const auto s = payload_traits<MsgT>::get_seq(*msg)) {
             rec.seq = *s;
@@ -63,7 +66,7 @@ private:
             rec.t_origin = t_now;
         }
         rec.t_observed = t_now;
-        records_pub_->publish(rec);
+        records_pub_.publish(rec);
     }
 
     std::string pipeline_id_;
@@ -74,8 +77,8 @@ private:
     int         payload_bytes_{0};
     uint64_t    local_seq_{0};
 
-    typename rclcpp::Subscription<MsgT>::SharedPtr sub_;
-    rclcpp::Publisher<latency_tests_msgs::msg::LatencyRecord>::SharedPtr records_pub_;
+    ros::Subscriber sub_;
+    ros::Publisher  records_pub_;
 };
 
 }  // namespace latency_tests

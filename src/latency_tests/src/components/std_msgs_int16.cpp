@@ -1,4 +1,4 @@
-#include "std_msgs/msg/int16.hpp"
+#include <std_msgs/Int16.h>
 #include "latency_tests/register_components.hpp"
 
-LATENCY_REGISTER_COMPONENTS(std_msgs::msg::Int16, std_msgs_Int16)
+LATENCY_REGISTER_COMPONENTS(std_msgs::Int16, std_msgs_Int16)

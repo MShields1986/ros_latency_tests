@@ -1,4 +1,4 @@
-#include "sensor_msgs/msg/range.hpp"
+#include <sensor_msgs/Range.h>
 #include "latency_tests/register_components.hpp"
 
-LATENCY_REGISTER_COMPONENTS(sensor_msgs::msg::Range, sensor_msgs_Range)
+LATENCY_REGISTER_COMPONENTS(sensor_msgs::Range, sensor_msgs_Range)

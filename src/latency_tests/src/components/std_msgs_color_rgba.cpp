@@ -1,4 +1,4 @@
-#include "std_msgs/msg/color_rgba.hpp"
+#include <std_msgs/ColorRGBA.h>
 #include "latency_tests/register_components.hpp"
 
-LATENCY_REGISTER_COMPONENTS(std_msgs::msg::ColorRGBA, std_msgs_ColorRGBA)
+LATENCY_REGISTER_COMPONENTS(std_msgs::ColorRGBA, std_msgs_ColorRGBA)

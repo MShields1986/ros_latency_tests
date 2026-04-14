@@ -1,4 +1,4 @@
-#include "geometry_msgs/msg/point_stamped.hpp"
+#include <geometry_msgs/PointStamped.h>
 #include "latency_tests/register_components.hpp"
 
-LATENCY_REGISTER_COMPONENTS(geometry_msgs::msg::PointStamped, geometry_msgs_PointStamped)
+LATENCY_REGISTER_COMPONENTS(geometry_msgs::PointStamped, geometry_msgs_PointStamped)

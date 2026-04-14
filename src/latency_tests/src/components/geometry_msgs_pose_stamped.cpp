@@ -1,4 +1,4 @@
-#include "geometry_msgs/msg/pose_stamped.hpp"
+#include <geometry_msgs/PoseStamped.h>
 #include "latency_tests/register_components.hpp"
 
-LATENCY_REGISTER_COMPONENTS(geometry_msgs::msg::PoseStamped, geometry_msgs_PoseStamped)
+LATENCY_REGISTER_COMPONENTS(geometry_msgs::PoseStamped, geometry_msgs_PoseStamped)

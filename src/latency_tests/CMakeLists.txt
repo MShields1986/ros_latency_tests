@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.0.2)
 project(latency_tests)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -8,27 +8,10 @@ endif()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(
-  THIS_PACKAGE_DEPS
-    ament_cmake
-    rclcpp
-    rclcpp_components
-    latency_tests_msgs
-    std_msgs
-    geometry_msgs
-    nav_msgs
-    sensor_msgs
-)
-
-foreach(PACKAGE ${THIS_PACKAGE_DEPS})
-  find_package(${PACKAGE} REQUIRED)
-endforeach()
-
-include_directories(include)
-
-set(COMMON_DEPS
-  rclcpp
-  rclcpp_components
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  nodelet
+  pluginlib
   latency_tests_msgs
   std_msgs
   geometry_msgs
@@ -36,8 +19,17 @@ set(COMMON_DEPS
   sensor_msgs
 )
 
+catkin_package(
+  INCLUDE_DIRS include
+  LIBRARIES latency_components latency_collector_component
+  CATKIN_DEPENDS roscpp nodelet pluginlib latency_tests_msgs
+                 std_msgs geometry_msgs nav_msgs sensor_msgs
+)
+
+include_directories(include ${catkin_INCLUDE_DIRS})
+
 # ----------------------------------------------------------------------------
-# Per-type components library
+# Per-type nodelet library
 # ----------------------------------------------------------------------------
 set(COMPONENT_SOURCES
   src/components/sensor_msgs_point_cloud2.cpp
@@ -88,106 +80,34 @@ set(COMPONENT_SOURCES
   src/components/std_msgs_u_int64_multi_array.cpp
 )
 
-add_library(latency_components SHARED ${COMPONENT_SOURCES})
-ament_target_dependencies(latency_components ${COMMON_DEPS})
-set_target_properties(latency_components PROPERTIES UNITY_BUILD ON)
-
-# Register every class defined via LATENCY_REGISTER_COMPONENTS.
-set(REGISTERED_TYPES
-  sensor_msgs_PointCloud2
-  sensor_msgs_Image
-  sensor_msgs_Imu
-  sensor_msgs_LaserScan
-  sensor_msgs_JointState
-  sensor_msgs_PointCloud
-  sensor_msgs_Range
-  sensor_msgs_Temperature
-  sensor_msgs_FluidPressure
-  nav_msgs_Odometry
-  nav_msgs_Path
-  geometry_msgs_PointStamped
-  geometry_msgs_PoseStamped
-  geometry_msgs_TwistStamped
-  geometry_msgs_WrenchStamped
-  geometry_msgs_TransformStamped
-  std_msgs_Header
-  std_msgs_String
-  std_msgs_Bool
-  std_msgs_Byte
-  std_msgs_Char
-  std_msgs_ColorRGBA
-  std_msgs_Empty
-  std_msgs_Float32
-  std_msgs_Float64
-  std_msgs_Int8
-  std_msgs_Int16
-  std_msgs_Int32
-  std_msgs_Int64
-  std_msgs_UInt8
-  std_msgs_UInt16
-  std_msgs_UInt32
-  std_msgs_UInt64
-  std_msgs_MultiArrayDimension
-  std_msgs_MultiArrayLayout
-  std_msgs_ByteMultiArray
-  std_msgs_Float32MultiArray
-  std_msgs_Float64MultiArray
-  std_msgs_Int8MultiArray
-  std_msgs_Int16MultiArray
-  std_msgs_Int32MultiArray
-  std_msgs_Int64MultiArray
-  std_msgs_UInt8MultiArray
-  std_msgs_UInt16MultiArray
-  std_msgs_UInt32MultiArray
-  std_msgs_UInt64MultiArray
-)
-
-foreach(TAG ${REGISTERED_TYPES})
-  rclcpp_components_register_nodes(latency_components
-    "latency_tests::LatencyPublisher_${TAG}"
-    "latency_tests::LatencyForwarder_${TAG}"
-    "latency_tests::LatencySubscriber_${TAG}"
-  )
-endforeach()
+add_library(latency_components ${COMPONENT_SOURCES})
+add_dependencies(latency_components ${catkin_EXPORTED_TARGETS})
+target_link_libraries(latency_components ${catkin_LIBRARIES})
 
 # ----------------------------------------------------------------------------
-# Collector library + component
+# Collector nodelet library
 # ----------------------------------------------------------------------------
-add_library(latency_collector_component SHARED src/latency_collector.cpp)
-ament_target_dependencies(latency_collector_component ${COMMON_DEPS})
-rclcpp_components_register_nodes(latency_collector_component
-  "latency_tests::LatencyCollector"
-)
-
-# ----------------------------------------------------------------------------
-# Custom multi-threaded component container executable
-# ----------------------------------------------------------------------------
-add_executable(latency_container_mt src/latency_container_mt.cpp)
-ament_target_dependencies(latency_container_mt
-  rclcpp
-  rclcpp_components
-)
+add_library(latency_collector_component src/latency_collector.cpp)
+add_dependencies(latency_collector_component ${catkin_EXPORTED_TARGETS})
+target_link_libraries(latency_collector_component ${catkin_LIBRARIES})
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 install(TARGETS latency_components latency_collector_component
-  EXPORT export_${PROJECT_NAME}
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
 )
 
-install(TARGETS latency_container_mt
-  DESTINATION lib/${PROJECT_NAME}
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
 )
 
 install(DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME}
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
-install(DIRECTORY include/
-  DESTINATION include
+install(FILES nodelets.xml
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
-
-ament_package()

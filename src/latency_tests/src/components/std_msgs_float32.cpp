@@ -1,4 +1,4 @@
-#include "std_msgs/msg/float32.hpp"
+#include <std_msgs/Float32.h>
 #include "latency_tests/register_components.hpp"
 
-LATENCY_REGISTER_COMPONENTS(std_msgs::msg::Float32, std_msgs_Float32)
+LATENCY_REGISTER_COMPONENTS(std_msgs::Float32, std_msgs_Float32)
