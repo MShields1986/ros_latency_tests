@@ -23,12 +23,13 @@ set -euo pipefail
 # Matrix definition. Every axis is a space-separated list — edit inline or
 # override from the environment. The cartesian product is executed in order.
 # -----------------------------------------------------------------------------
-MATRIX_RMWS="${MATRIX_RMWS:-cyclonedds fastdds fastdds_dynamic zenoh}"
+MATRIX_RMWS="${MATRIX_RMWS:-cyclonedds fastdds fastdds_dynamic zenoh ipc}"
 MATRIX_MESSAGES="${MATRIX_MESSAGES:-std_msgs/Float64 geometry_msgs/TransformStamped sensor_msgs/PointCloud2}"
 MATRIX_PAYLOADS="${MATRIX_PAYLOADS:-1048576}"
 MATRIX_NODES="${MATRIX_NODES:-2}"
 MATRIX_THREADS="${MATRIX_THREADS:-2}"
-MATRIX_IPCS="${MATRIX_IPCS:-false true}"
+# DDS services default to no-IPC; the dedicated 'ipc' service always forces true.
+MATRIX_IPCS="${MATRIX_IPCS:-false}"
 MATRIX_RATE="${MATRIX_RATE:-20.0}"
 MATRIX_DURATION="${MATRIX_DURATION:-600.0}"
 
@@ -51,12 +52,17 @@ is_exploratory() {
 }
 
 total=0
-for _ in $MATRIX_RMWS; do
+for svc_ in $MATRIX_RMWS; do
+    if [[ "$svc_" == "ipc" ]]; then
+        ipcs_count="true"
+    else
+        ipcs_count="$MATRIX_IPCS"
+    fi
     for _ in $MATRIX_MESSAGES; do
         for _ in $MATRIX_PAYLOADS; do
             for _ in $MATRIX_NODES; do
                 for _ in $MATRIX_THREADS; do
-                    for _ in $MATRIX_IPCS; do
+                    for _ in $ipcs_count; do
                         total=$((total + 1))
                     done
                 done
@@ -81,11 +87,19 @@ for svc in $MATRIX_RMWS; do
         PROFILE_ARGS=(--profile exploratory)
     fi
 
+    # The dedicated 'ipc' service always uses zero-copy intra-process comms.
+    # DDS services iterate over MATRIX_IPCS (default: false only).
+    if [[ "$svc" == "ipc" ]]; then
+        ipc_values="true"
+    else
+        ipc_values="$MATRIX_IPCS"
+    fi
+
     for msg in $MATRIX_MESSAGES; do
         for payload in $MATRIX_PAYLOADS; do
             for nodes in $MATRIX_NODES; do
                 for threads in $MATRIX_THREADS; do
-                    for ipc in $MATRIX_IPCS; do
+                    for ipc in $ipc_values; do
                         i=$((i + 1))
                         echo
                         echo "=========================================================="

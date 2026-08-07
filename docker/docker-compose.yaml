@@ -82,6 +82,18 @@ services:
       args:
         RMW_IMPL: iceoryx2
 
+  # Zero-copy intra-process path — CycloneDDS installed as backing RMW but
+  # not exercised; all communication bypasses the middleware via rclcpp IPC.
+  # Always launched with use_intra_process_comms:=true.
+  ipc:
+    <<: *common
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      network: host
+      args:
+        RMW_IMPL: ipc
+
   # Standalone plotter — reads the CSVs written by the other services and
   # emits PNG violin plots into the same data volume.
   plot:

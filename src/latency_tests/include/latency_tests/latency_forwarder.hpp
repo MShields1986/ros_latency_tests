@@ -68,8 +68,8 @@ private:
         rec.t_observed = t_now;
         records_pub_->publish(rec);
 
-        // Republish unchanged — stamp and frame_id propagate.
-        pub_->publish(*msg);
+        auto fwd = std::make_unique<MsgT>(*msg);
+        pub_->publish(std::move(fwd));
     }
 
     std::string pipeline_id_;

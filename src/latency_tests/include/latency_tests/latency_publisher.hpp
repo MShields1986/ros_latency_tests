@@ -77,12 +77,12 @@ public:
 private:
     void tick()
     {
-        MsgT msg = template_msg_;
+        auto msg = std::make_unique<MsgT>(template_msg_);
         const rclcpp::Time t_now = this->now();
-        payload_traits<MsgT>::set_origin_stamp(msg, t_now);
-        payload_traits<MsgT>::set_correlation(msg, pipeline_id_, seq_);
+        payload_traits<MsgT>::set_origin_stamp(*msg, t_now);
+        payload_traits<MsgT>::set_correlation(*msg, pipeline_id_, seq_);
 
-        pub_->publish(msg);
+        pub_->publish(std::move(msg));
 
         latency_tests_msgs::msg::LatencyRecord rec;
         rec.pipeline_id = pipeline_id_;

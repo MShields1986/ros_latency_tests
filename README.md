@@ -43,9 +43,13 @@ The plots below shows a single hop pub → sub latency for:
 
 - sensor_msgs/PointCloud2 at 1 MB
 
-DDS choices of cyclonedds, fastdds, fastdds_dynamic, and zenoh are compared with and without intraprocess communications for each message type.
+DDS choices of cyclonedds, fastdds, fastdds_dynamic, and zenoh are compared against rclcpp zero-copy intra-process communication (the `ipc` service).
 Transmission rates were 20 Hz and data was collected for 600 seconds in all cases.
 Each plot is for a different Linux kernel.
+
+**7.0.0-29-generic** (includes zero-copy IPC comparison)
+
+<img src="https://github.com/MShields1986/ros_latency_tests/blob/main/img/violin_all_7.0.0-29-generic.png" width=80% height=80%>
 
 **5.15.0-139-generic**
 
@@ -98,16 +102,16 @@ docker compose -f docker/docker-compose.yaml run --rm cyclonedds \
     duration_s:=30.0
 ```
 
-| launch arg                | default                     | notes |
-|---------------------------|-----------------------------|-------|
-| `message_type`            | `sensor_msgs/PointCloud2`   | see the list below |
-| `num_nodes`               | `2`                         | pub + forwarders + sub, `>=2` |
-| `num_threads`             | `2`                         | executor threads in container (0 = hw concurrency) |
-| `payload_bytes`           | `1048576`                   | target serialized size for variable-length fields |
-| `publish_rate_hz`         | `10.0`                      | publisher tick rate |
-| `use_intra_process_comms` | `false`                     | enable rclcpp IPC on every chain node; recorded in CSV and the plot label |
-| `warmup_s`                | `10.0`                      | delay before the publisher starts |
-| `duration_s`              | `600.0`                     | seconds before the launch shuts itself down |
+| launch arg                | default                        | notes |
+|---------------------------|--------------------------------|-------|
+| `message_type`            | `geometry_msgs/PoseStamped`    | see the list below |
+| `num_nodes`               | `2`                            | pub + forwarders + sub, `>=2` |
+| `num_threads`             | `2`                            | executor threads in container (0 = hw concurrency) |
+| `payload_bytes`           | `1024`                         | target serialized size for variable-length fields |
+| `publish_rate_hz`         | `10.0`                         | publisher tick rate |
+| `use_intra_process_comms` | `false`                        | enable rclcpp zero-copy IPC on every chain node (publisher uses `unique_ptr`+`move`); recorded in CSV and the plot label |
+| `warmup_s`                | `10.0`                         | delay before the publisher starts |
+| `duration_s`              | `600.0`                        | seconds before the launch shuts itself down |
 
 Supported `message_type` values come from `src/latency_tests/launch/latency_pipeline.launch.py` (`_TYPE_TAGS`).
 Adding a new one is one `.cpp` line in `src/latency_tests/src/components/` plus the tag in that map.
@@ -118,16 +122,21 @@ Adding a new one is one `.cpp` line in `src/latency_tests/src/components/` plus 
 Each axis is a space-separated list and can be overridden from the environment:
 
 ```shell
-MATRIX_RMWS="cyclonedds zenoh" \
+MATRIX_RMWS="cyclonedds zenoh ipc" \
 MATRIX_MESSAGES="sensor_msgs/PointCloud2 sensor_msgs/Image" \
 MATRIX_PAYLOADS="1024 1048576" \
 MATRIX_NODES="2 5" \
 MATRIX_THREADS="1 4" \
-MATRIX_IPCS="false true" \
+MATRIX_IPCS="false" \
 MATRIX_RATE=50.0 \
 MATRIX_DURATION=30.0 \
 ./run_all.sh
 ```
+
+The `ipc` service always runs with `use_intra_process_comms:=true` regardless of `MATRIX_IPCS`.
+DDS services use `MATRIX_IPCS` (default `"false"`); set it to `"false true"` to also benchmark
+each DDS variant with IPC routing enabled (useful for isolating middleware overhead from
+transport overhead).
 
 Legacy form `./run_all.sh "cyclonedds zenoh"` still works — the positional argument replaces `MATRIX_RMWS`.
 When every axis is a single value, the matrix collapses to a single run.
@@ -140,6 +149,7 @@ When every axis is a single value, the matrix collapses to a single run.
 | `fastdds` | `rmw_fastrtps_cpp` | ✅ |
 | `fastdds_dynamic` | `rmw_fastrtps_dynamic_cpp` | ✅ |
 | `zenoh` | `rmw_zenoh_cpp` | ✅ (router started in container) |
+| `ipc` | rclcpp zero-copy intra-process (CycloneDDS installed but not exercised) | ✅ |
 | `iceoryx` | `rmw_iceoryx_cpp` (v1) | ⚠ exploratory |
 | `iceoryx2` | — | 🚧 placeholder, not implemented |
 | `agnocast` | — | 🚧 placeholder, not implemented |

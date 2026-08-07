@@ -193,10 +193,11 @@ def _build_dataframe(runs: List[RunCsv], label_scheme: str) -> pd.DataFrame:
     for r in runs:
         if r.hop_ns.empty:
             continue
+        rmw_label = "ipc (zero-copy)" if r.ipc else _short_rmw(r.rmw)
         frames.append(pd.DataFrame({
             "hop_us": r.hop_ns.values / 1000.0,
             "run": r.label(label_scheme),
-            "rmw": _short_rmw(r.rmw),
+            "rmw": rmw_label,
             "msg": r.msg.split("/")[-1],
         }))
     if not frames:
